@@ -28,8 +28,12 @@ def main():
     })
     
     print(raw_response)
-    formated_response = parser.parse(raw_response.get("output")[0]["text"])
-    print(formated_response)
+    try:
+        formated_response = parser.parse(raw_response.get("output")[0]["text"])
+        print(formated_response)
+
+    except Exception as e:
+        print(f"Error parsing response: {e}\nRaw response: {raw_response}")
 
 
 if __name__ == "__main__":
