@@ -3,16 +3,23 @@ from langchain_openai import ChatOpenAI
 from langchain_anthropic import ChatAnthropic
 from langchain.agents import create_tool_calling_agent, AgentExecutor
 from temps.base_template import prompt, parser
-from utils import search_tool
+from utils import search_tool, wiki_tool
 
 load_dotenv()
 
     
-
+# https://python.langchain.com/docs/integrations/chat/openai/#model-features
 llm = ChatOpenAI(model="gpt-40-mini")
+
+# https://python.langchain.com/docs/integrations/chat/anthropic/#model-features
 llm2 = ChatAnthropic(model="claude-3-5-sonnet-20241022")
 
-tools = [search_tool]
+
+tools = [
+    # search_tool,  # duckgogo search has an error limit
+    wiki_tool,
+    ]
+
 agent = create_tool_calling_agent(
     llm2,
     tools=tools,

@@ -4,9 +4,19 @@ from langchain.tools import Tool
 from datetime import datetime
 
 
+# https://python.langchain.com/docs/integrations/tools/ddg/
 search = DuckDuckGoSearchRun()
 search_tool = Tool(
     name="search_duckduckgo",
     func=search.run,
     description="Search the web with DuckDuckGo",
 )
+
+# https://python.langchain.com/docs/integrations/tools/wikipedia
+api_wrapper = WikipediaAPIWrapper(
+    top_k_results=1,
+    doc_content_chars_max=1000,  # characters of the output text
+    api_key=None,  # optional API key
+)
+
+wiki_tool = WikipediaQueryRun(api_wrapper=api_wrapper)
