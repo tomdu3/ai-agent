@@ -20,3 +20,20 @@ api_wrapper = WikipediaAPIWrapper(
 )
 
 wiki_tool = WikipediaQueryRun(api_wrapper=api_wrapper)
+
+# custom tool
+def save_to_txt(text: str, filename: str = "output.txt"):
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    formatted_output = f"--- search output ---\nTimestamp: {timestamp}\n{text}\n"
+    print(formatted_output)
+    
+    with open(filename, "a", encoding="utf-8") as f:
+        f.write(text)
+    
+    return f"Output Saved to {filename}"
+
+save_to_txt_tool = Tool(
+    name="save_to_txt",
+    func=save_to_txt,
+    description="Save the output to a text file",
+)

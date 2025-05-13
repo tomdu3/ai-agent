@@ -3,7 +3,7 @@ from langchain_openai import ChatOpenAI
 from langchain_anthropic import ChatAnthropic
 from langchain.agents import create_tool_calling_agent, AgentExecutor
 from temps.base_template import prompt, parser
-from utils import search_tool, wiki_tool
+from utils import search_tool, wiki_tool, save_to_txt_tool
 
 load_dotenv()
 
@@ -18,6 +18,7 @@ llm2 = ChatAnthropic(model="claude-3-5-sonnet-20241022")
 tools = [
     # search_tool,  # duckgogo search has an error limit
     wiki_tool,
+    save_to_txt_tool,
     ]
 
 agent = create_tool_calling_agent(
